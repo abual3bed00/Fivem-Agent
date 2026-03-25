@@ -1003,6 +1003,11 @@ body {
   outline: none;
 }
 
+select.modal-input {
+  font-family: 'Tajawal', sans-serif;
+  cursor: pointer;
+}
+
 .modal-input:focus {
   border-color: var(--accent);
 }

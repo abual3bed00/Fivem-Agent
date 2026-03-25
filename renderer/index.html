@@ -33,6 +33,9 @@
 
 <!-- ═══ TOOLBAR ═══════════════════════════════════════════════════════════ -->
 <div class="toolbar">
+  <button class="tool-btn" id="btn-new-resource" title="Resource جديد">
+    <i class="fa-solid fa-box-open"></i><span class="btn-label">Resource جديد</span>
+  </button>
   <button class="tool-btn" id="btn-new-file" title="ملف جديد">
     <i class="fa-solid fa-file-circle-plus"></i><span class="btn-label">جديد</span>
   </button>
@@ -101,6 +104,7 @@
           <h2>FiveM Script Agent</h2>
           <p>افتح مجلداً وابدأ بكتابة السكريبتات</p>
           <div class="quick-actions">
+            <button class="quick-btn" id="qb-new-resource"><i class="fa-solid fa-box-open"></i> Resource جديد</button>
             <button class="quick-btn" id="qb-new-lua"><i class="fa-solid fa-moon"></i> سكريبت Lua جديد</button>
             <button class="quick-btn" id="qb-new-ui"><i class="fa-solid fa-palette"></i> واجهة NUI جديدة</button>
             <button class="quick-btn" id="qb-open"><i class="fa-solid fa-folder-open"></i> فتح مجلد</button>
@@ -199,6 +203,31 @@
       <div class="modal-actions">
         <button class="modal-btn primary" id="confirm-newfile">إنشاء</button>
         <button class="modal-btn" id="cancel-newfile">إلغاء</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New Resource Modal -->
+<div class="modal-overlay" id="modal-newresource" style="display:none">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-box-open"></i> Resource جديد</h3>
+      <button class="icon-btn" id="close-modal-newresource"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <label>اسم الريسورس</label>
+      <input type="text" id="newresource-name" placeholder="my_resource" class="modal-input" />
+      <label style="margin-top:14px;">الفريمورك</label>
+      <select id="newresource-framework" class="modal-input">
+        <option value="standalone">Standalone</option>
+        <option value="qbcore">QBCore</option>
+        <option value="esx">ESX</option>
+        <option value="vrp">vRP</option>
+      </select>
+      <div class="modal-actions">
+        <button class="modal-btn primary" id="confirm-newresource">إنشاء الريسورس</button>
+        <button class="modal-btn" id="cancel-newresource">إلغاء</button>
       </div>
     </div>
   </div>
