@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiveM Script Agent</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="../node_modules/codemirror/lib/codemirror.css" />
+  <link rel="stylesheet" href="../node_modules/codemirror/theme/dracula.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+<!-- ═══ TITLE BAR ═════════════════════════════════════════════════════════ -->
+<div class="titlebar" id="titlebar">
+  <div class="titlebar-left">
+    <div class="app-logo">
+      <span class="logo-icon"><i class="fa-solid fa-gamepad"></i></span>
+      <span class="logo-text">FiveM <span class="logo-accent">Script Agent</span></span>
+    </div>
+  </div>
+  <div class="titlebar-drag"></div>
+  <div class="titlebar-controls">
+    <button class="tb-btn" id="btn-minimize" title="تصغير"><i class="fa-solid fa-minus"></i></button>
+    <button class="tb-btn" id="btn-maximize" title="تكبير"><i class="fa-regular fa-square"></i></button>
+    <button class="tb-btn danger" id="btn-close" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- ═══ TOOLBAR ═══════════════════════════════════════════════════════════ -->
+<div class="toolbar">
+  <button class="tool-btn" id="btn-new-file" title="ملف جديد">
+    <i class="fa-solid fa-file-circle-plus"></i><span class="btn-label">جديد</span>
+  </button>
+  <button class="tool-btn" id="btn-open-folder" title="فتح مجلد">
+    <i class="fa-solid fa-folder-open"></i><span class="btn-label">فتح مجلد</span>
+  </button>
+  <button class="tool-btn" id="btn-save" title="حفظ (Ctrl+S)">
+    <i class="fa-solid fa-floppy-disk"></i><span class="btn-label">حفظ</span>
+  </button>
+  <div class="toolbar-sep"></div>
+  <button class="tool-btn" id="btn-templates" title="القوالب">
+    <i class="fa-solid fa-cubes"></i><span class="btn-label">قوالب</span>
+  </button>
+  <button class="tool-btn" id="btn-search-web" title="بحث ويب">
+    <i class="fa-solid fa-magnifying-glass"></i><span class="btn-label">بحث</span>
+  </button>
+  <div class="toolbar-sep"></div>
+  <button class="tool-btn" id="btn-new-chat" title="محادثة جديدة">
+    <i class="fa-solid fa-arrows-rotate"></i><span class="btn-label">محادثة جديدة</span>
+  </button>
+  <div class="toolbar-spacer"></div>
+  <button class="tool-btn" id="btn-toggle-chat" title="إظهار/إخفاء المساعد">
+    <i class="fa-solid fa-robot"></i><span class="btn-label">المساعد</span>
+  </button>
+  <button class="tool-btn" id="btn-toggle-terminal" title="إظهار/إخفاء السجل">
+    <i class="fa-solid fa-terminal"></i><span class="btn-label">السجل</span>
+  </button>
+  <div class="toolbar-sep"></div>
+  <div class="ai-status" id="ai-status">
+    <span class="status-dot" id="status-dot"></span>
+    <span id="status-text">بدء النظام...</span>
+  </div>
+</div>
+
+<!-- ═══ MAIN LAYOUT ════════════════════════════════════════════════════════ -->
+<div class="main-layout">
+
+  <!-- FILE TREE -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title"><i class="fa-solid fa-folder-tree"></i> المستكشف</span>
+      <button class="icon-btn" id="btn-collapse-sidebar" title="إخفاء"><i class="fa-solid fa-chevron-left"></i></button>
+    </div>
+    <div class="file-tree" id="file-tree">
+      <div class="no-folder">
+        <p><i class="fa-solid fa-folder-open"></i></p>
+        <p>اضغط "فتح مجلد"<br/>لبدء العمل</p>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <button class="footer-btn" id="btn-check-updates">
+        <i class="fa-solid fa-download"></i> تنزيل التحديث
+      </button>
+    </div>
+  </aside>
+
+  <!-- EDITOR AREA -->
+  <main class="editor-area" id="editor-area">
+    <div class="tabs-bar" id="tabs-bar">
+      <div class="no-tabs" id="no-tabs-msg">افتح ملفاً من المستكشف أو أنشئ ملفاً جديداً</div>
+    </div>
+    <div class="editor-wrapper" id="editor-wrapper">
+      <div class="editor-placeholder" id="editor-placeholder">
+        <div class="placeholder-content">
+          <div class="placeholder-logo"><i class="fa-solid fa-code"></i></div>
+          <h2>FiveM Script Agent</h2>
+          <p>افتح مجلداً وابدأ بكتابة السكريبتات</p>
+          <div class="quick-actions">
+            <button class="quick-btn" id="qb-new-lua"><i class="fa-solid fa-moon"></i> سكريبت Lua جديد</button>
+            <button class="quick-btn" id="qb-new-ui"><i class="fa-solid fa-palette"></i> واجهة NUI جديدة</button>
+            <button class="quick-btn" id="qb-open"><i class="fa-solid fa-folder-open"></i> فتح مجلد</button>
+          </div>
+        </div>
+      </div>
+      <div id="cm-editor" style="display:none; height:100%;"></div>
+    </div>
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span id="sb-file">لا يوجد ملف</span>
+      <span class="sb-sep">|</span>
+      <span id="sb-lang">-</span>
+      <span class="sb-sep">|</span>
+      <span id="sb-cursor">سطر 1، عمود 1</span>
+      <div class="sb-spacer"></div>
+      <span id="sb-encoding">UTF-8</span>
+    </div>
+  </main>
+
+  <!-- AI CHAT PANEL -->
+  <aside class="chat-panel" id="chat-panel">
+    <div class="chat-header">
+      <span class="chat-title"><i class="fa-solid fa-robot"></i> المساعد الذكي</span>
+      <div class="chat-header-actions">
+        <button class="icon-btn" id="btn-collapse-chat" title="إخفاء"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg bot">
+        <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+        <div class="msg-bubble">
+          <p>مرحباً! أنا مساعدك المتخصص في سكريبتات <strong>FiveM</strong>.</p>
+          <p>أقدر أساعدك في:</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> كتابة سكريبتات Lua من الصفر</li>
+            <li><i class="fa-solid fa-check"></i> إنشاء واجهات NUI (HTML/CSS/JS)</li>
+            <li><i class="fa-solid fa-check"></i> دعم QBCore و ESX و ox_lib</li>
+            <li><i class="fa-solid fa-check"></i> تحليل وتعديل ملفاتك</li>
+            <li><i class="fa-solid fa-check"></i> البحث في الإنترنت</li>
+          </ul>
+          <p>اكتب <code>/search</code> للبحث في الويب.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <div class="chat-context-bar" id="chat-context-bar"></div>
+      <div class="chat-input-row">
+        <textarea
+          id="chat-input"
+          placeholder="اكتب طلبك هنا... (Shift+Enter لسطر جديد)"
+          rows="2"
+        ></textarea>
+        <button class="send-btn" id="btn-send">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ═══ BOTTOM TERMINAL ════════════════════════════════════════════════════ -->
+<div class="terminal-panel" id="terminal-panel">
+  <div class="terminal-header">
+    <span><i class="fa-solid fa-terminal"></i> سجل العمليات</span>
+    <button class="icon-btn" id="btn-clear-terminal" title="مسح"><i class="fa-solid fa-trash-can"></i></button>
+  </div>
+  <div class="terminal-output" id="terminal-output">
+    <div class="term-line info">[ FiveM Script Agent ] مرحباً بك — جاري تهيئة النظام...</div>
+  </div>
+</div>
+
+<!-- ═══ MODALS ══════════════════════════════════════════════════════════════ -->
+<!-- Template Picker Modal -->
+<div class="modal-overlay" id="modal-templates" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-cubes"></i> اختر قالباً</h3>
+      <button class="icon-btn" id="close-modal-templates"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="template-grid" id="template-grid"></div>
+  </div>
+</div>
+
+<!-- New File Modal -->
+<div class="modal-overlay" id="modal-newfile" style="display:none">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-file-circle-plus"></i> ملف جديد</h3>
+      <button class="icon-btn" id="close-modal-newfile"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <label>اسم الملف</label>
+      <input type="text" id="newfile-name" placeholder="client.lua" class="modal-input" />
+      <div class="modal-actions">
+        <button class="modal-btn primary" id="confirm-newfile">إنشاء</button>
+        <button class="modal-btn" id="cancel-newfile">إلغاء</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div class="context-menu" id="context-menu" style="display:none">
+  <div class="ctx-item" id="ctx-open"><i class="fa-regular fa-file-lines"></i> فتح</div>
+  <div class="ctx-item" id="ctx-open-ext"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح بالبرنامج الافتراضي</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" id="ctx-rename"><i class="fa-solid fa-pen"></i> إعادة تسمية</div>
+  <div class="ctx-item" id="ctx-move"><i class="fa-solid fa-arrows-up-down-left-right"></i> نقل</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" id="ctx-delete"><i class="fa-solid fa-trash"></i> حذف</div>
+</div>
+
+<!-- Setup / Model Download Overlay (Premium Splash) -->
+<div class="setup-overlay" id="setup-overlay" style="display:none">
+  <div class="setup-box">
+    <div class="splash-logo pulse"><i class="fa-solid fa-microchip"></i></div>
+    <div class="splash-title">FiveM <span class="logo-accent">Script Agent</span></div>
+    <div class="progress-bar-wrap splash-bar">
+      <div class="progress-bar-inner glow-bar" id="download-progress" style="width:0%"></div>
+    </div>
+    <div id="setup-status">جاري تحضير المحرك الذكي...</div>
+    <button class="modal-btn primary" id="btn-start-download" style="display:none">تنشيط المحرك</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="../node_modules/codemirror/lib/codemirror.js"></script>
+<script src="../node_modules/codemirror/mode/lua/lua.js"></script>
+<script src="../node_modules/codemirror/mode/javascript/javascript.js"></script>
+<script src="../node_modules/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="../node_modules/codemirror/mode/xml/xml.js"></script>
+<script src="../node_modules/codemirror/mode/css/css.js"></script>
+<script src="../node_modules/codemirror/mode/markdown/markdown.js"></script>
+<script src="../node_modules/codemirror/addon/edit/closebrackets.js"></script>
+<script src="../node_modules/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="../node_modules/codemirror/addon/selection/active-line.js"></script>
+<script src="../node_modules/codemirror/addon/comment/comment.js"></script>
+<script src="editor.js"></script>
+<script src="app.js"></script>
+<script src="chat.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+models/
+*.log
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store
+
+# Local app data and generated update cache
+updates/
+
+# IDE files
+.vscode/
+.idea/
