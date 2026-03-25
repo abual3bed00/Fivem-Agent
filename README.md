@@ -1,36 +1,80 @@
 # FiveM Script Agent
 
-![Release](https://img.shields.io/github/v/release/abual3bed00/Fivem-Agent?label=release&style=for-the-badge)
-![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=for-the-badge)
-![Electron](https://img.shields.io/badge/built%20with-Electron-47848F?style=for-the-badge)
-![FiveM](https://img.shields.io/badge/focus-FiveM-orange?style=for-the-badge)
-![License](https://img.shields.io/github/license/abual3bed00/Fivem-Agent?style=for-the-badge)
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/abual3bed00/Fivem-Agent?style=for-the-badge&logo=github&label=Release" alt="Release" />
+  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
+  <img src="https://img.shields.io/badge/Built%20With-Electron-47848F?style=for-the-badge&logo=electron&logoColor=white" alt="Electron" />
+  <img src="https://img.shields.io/badge/Runtime-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Focus-FiveM-F57C00?style=for-the-badge&logo=rockstargames&logoColor=white" alt="FiveM" />
+  <img src="https://img.shields.io/github/license/abual3bed00/Fivem-Agent?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="License" />
+</p>
 
-FiveM Script Agent is a desktop app built to make FiveM resource development faster, cleaner, and easier. It combines a code editor, project explorer, ready-made templates, local AI tooling, and update support in one place so you can build FiveM scripts without jumping between too many tools.
+FiveM Script Agent is a desktop app built to help FiveM developers create, edit, organize, and improve resources faster with a focused editor, file tools, templates, and AI-assisted workflows.
+
+---
+
+## العربية
+
+### ما هو المشروع؟
+
+**FiveM Script Agent** هو تطبيق سطح مكتب مخصص لتطوير سكربتات وموارد FiveM بطريقة أسرع وأسهل وأكثر تنظيمًا.  
+فكرة التطبيق أنه يجمع لك أهم الأدوات في مكان واحد بدل ما تتنقل بين أكثر من محرر ومجلد وأداة خارجية.
+
+### ما فائدته؟
+
+هذا التطبيق يفيدك إذا كنت تعمل على:
+
+- سكربتات FiveM
+- مشاريع `QBCore`
+- مشاريع `ESX`
+- واجهات `NUI`
+- ملفات `Lua`
+- ملفات `HTML / CSS / JavaScript`
+- إنشاء أو تعديل موارد كاملة بسرعة
+
+### ماذا يقدم لك؟
+
+- محرر ملفات داخل التطبيق
+- مستعرض ملفات للمشروع
+- إنشاء ملفات جديدة بسرعة
+- قوالب جاهزة لملفات FiveM الشائعة
+- تنظيم أفضل لمجلدات المشروع
+- مساعدة ذكية مبنية على AI
+- دعم للتحديثات من GitHub Releases
+- بناء ملف تثبيت ويندوز للتطبيق
+
+### لماذا تم إنشاء هذا التطبيق؟
+
+لأن تطوير FiveM غالبًا يكون فيه تكرار كثير:
+
+- إنشاء نفس الملفات كل مرة
+- التنقل بين المحرر والمجلدات والمتصفح
+- البحث عن أمثلة جاهزة
+- إعادة كتابة boilerplate بشكل متكرر
+
+هذا المشروع يحاول يقلل هذا التعب ويعطيك بيئة أخف وأسرع لتطوير الموارد والسكربتات.
+
+### لمن هذا المشروع؟
+
+المشروع مناسب لـ:
+
+- مطوري FiveM المبتدئين
+- مطوري السيرفرات الخاصة
+- من يعمل على `QBCore` أو `ESX`
+- من يريد أداة محلية تساعده في كتابة السكربتات وإدارة الملفات
+
+### صاحب المشروع
+
+- المالك: **ii_abual3bed**
+- GitHub: [abual3bed00](https://github.com/abual3bed00)
+
+---
 
 ## Overview
 
-This project is designed for developers who work on:
+FiveM Script Agent is designed for developers who want a lightweight desktop workspace for FiveM development with practical editing tools and integrated AI assistance.
 
-- FiveM resources
-- QBCore and ESX scripts
-- NUI interfaces
-- Lua, HTML, CSS, and JavaScript files
-- AI-assisted script generation and editing
-
-The app helps you create, edit, organize, and improve FiveM resources through a desktop workflow that feels closer to a lightweight game-dev IDE.
-
-## Why This App Exists
-
-FiveM development often means switching between editors, folders, templates, docs, and repeated boilerplate. This app aims to reduce that friction by giving you:
-
-- A focused workspace for FiveM projects
-- Fast file creation from templates
-- Built-in resource editing tools
-- Local AI assistance for reading and generating code
-- Easier release and update flow through GitHub
-
-## Main Features
+### Main Features
 
 - Desktop editor built with Electron
 - Project explorer for browsing resource files
@@ -42,46 +86,46 @@ FiveM development often means switching between editors, folders, templates, doc
 - GitHub-based app update support
 - Windows installer generation with `electron-builder`
 
-## Project Structure
+### Project Structure
 
-- `main.js`: Electron main process and application logic
+- `main.js`: Electron main process and core application logic
 - `preload.js`: secure bridge between Electron and renderer
-- `renderer/`: UI files for the application
-- `templates/`: starter files used when creating new resources/files
-- `knowledge/`: built-in reference material used by the app
+- `renderer/`: UI files and client-side behavior
+- `templates/`: starter files used to generate new project files
+- `knowledge/`: built-in reference content used by the app
 - `assets/`: icons and visual assets
 - `build/`: installer-related configuration
-- `version.json`: app version metadata and GitHub update settings
+- `version.json`: app version metadata and GitHub update configuration
 
-## Installation
+### Installation
 
-### Run Locally
+#### Run Locally
 
 ```powershell
 npm install
 npm start
 ```
 
-### Build Windows Installer
+#### Build Windows Installer
 
 ```powershell
 npm run build
 ```
 
-The generated installer will be created inside:
+The generated installer will be available in:
 
 ```text
 dist/
 ```
 
-## Updates
+### Updates
 
-The app is prepared to check GitHub Releases directly. When a newer version is published to the repository releases page, the app can detect it, download the installer, and start the update flow.
+The app is prepared to check GitHub Releases directly. When a newer version is published, the application can detect it, download the installer, and start the update flow.
 
 Repository:
-[https://github.com/abual3bed00/Fivem-Agent](https://github.com/abual3bed00/Fivem-Agent)
+[abual3bed00/Fivem-Agent](https://github.com/abual3bed00/Fivem-Agent)
 
-## Tech Stack
+### Tech Stack
 
 - Electron
 - Node.js
@@ -90,13 +134,6 @@ Repository:
 - Chokidar
 - node-llama-cpp
 - electron-builder
-
-## Owner
-
-Project owner:
-
-- GitHub: [abual3bed00](https://github.com/abual3bed00)
-- Developer name: ii_abual3bed
 
 ## License
 
