@@ -1,0 +1,10 @@
+{
+  "version": "1.2.8",
+  "name": "FiveM Script Agent",
+  "releaseDate": "2026-03-23",
+  "github": {
+    "owner": "abual3bed00",
+    "repo": "Fivem-Agent",
+    "assetPattern": "FiveM Script Agent Setup {version}.exe"
+  }
+}

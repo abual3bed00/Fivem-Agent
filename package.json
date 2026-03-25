@@ -1,0 +1,71 @@
+{
+  "name": "fivem-script-agent",
+  "version": "1.2.8",
+  "description": "FiveM Script Agent - AI-powered desktop app for FiveM script development",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "dev": "electron . --dev"
+  },
+  "dependencies": {
+    "@node-llama-cpp/win-x64-cuda": "^3.18.1",
+    "axios": "^1.6.7",
+    "chokidar": "^3.6.0",
+    "codemirror": "^5.65.16",
+    "marked": "^12.0.0",
+    "node-llama-cpp": "latest",
+    "vectra": "latest"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.fivem.scriptagent",
+    "productName": "FiveM Script Agent",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "include": "build/installer.nsh"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/@node-llama-cpp/**/*",
+      "node_modules/node-llama-cpp/**/*"
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      "renderer/**/*",
+      "assets/**/*",
+      "templates/**/*",
+      "knowledge/**/*",
+      "version.json"
+    ],
+    "extraResources": [
+      {
+        "from": "models/",
+        "to": "models/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abual3bed00/Fivem-Agent.git"
+  },
+  "homepage": "https://github.com/abual3bed00/Fivem-Agent",
+  "bugs": {
+    "url": "https://github.com/abual3bed00/Fivem-Agent/issues"
+  }
+}
